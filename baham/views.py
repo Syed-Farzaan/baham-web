@@ -54,3 +54,13 @@ def save_vehicle(request):
     vehicleModel = VehicleModel(vendor=_vendor, model=_model, type=_type, capacity=_capacity)
     vehicleModel.save()
     return HttpResponseRedirect(reverse('vehicles'))
+
+    def delete_vehicle(request, id):
+    obj = get_object_or_404(Vehicle, pk = id)
+    obj.delete(voided_by=request.user)
+    return HttpResponseRedirect(reverse(view_vehicles))
+
+    def undelete_vehicle(request, id):
+    obj = get_object_or_404(Vehicle, pk = id)
+    obj.undelete()
+    return HttpResponseRedirect(reverse(view_vehicles))
